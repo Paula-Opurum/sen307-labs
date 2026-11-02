@@ -1,0 +1,47 @@
+ INSERT INTO Department (dept_name) VALUES (NULL);
+ERROR 1048 (23000): Column 'dept_name' cannot be null
+
+NSERT INTO Course (course_code, course_title, credit_units) VALUES ('TST101', 'Test', 9);
+ERROR 3819 (HY000): Check constraint 'chk_credit_units' is violated.
+
+ INSERT INTO Student (matric_no, full_name, dept_id) VALUES ('TEST001', 'Test', 999);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`sen307_11281`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `department` (`dept_id`))
+
+ INSERT INTO Student (matric_no, full_name, gender) VALUES ('TEST002', 'Test', 'X');
+ERROR 1265 (01000): Data truncated for column 'gender' at row 1
+
+ SELECT COUNT(*) FROM Department;
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.396 sec)
+
+ SELECT COUNT(*) FROM Course;
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.007 sec)
+
+ SELECT COUNT(*) FROM Student;
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.005 sec)
+
+ INSERT INTO Department (dept_name)
+    -> VALUES ('Computer Science');
+Query OK, 1 row affected (0.462 sec)
+
+mysql> INSERT INTO Department (dept_name)
+    -> VALUES ('Computer Science');
+ERROR 1062 (23000): Duplicate entry 'Computer Science' for key 'department.dept_name'
+
+DELETE FROM Department
+    -> WHERE dept_name = 'Computer Science';
+Query OK, 1 row affected (0.409 sec)
